@@ -9,6 +9,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestion;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.tree.CommandNode;
+import de.florianmichael.spigotbrigadier.SpigotBrigadier;
 import de.florianmichael.spigotbrigadier.brigadier.SpigotCommandSource;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -23,7 +24,6 @@ public abstract class BCommand extends BukkitCommand {
     public static final int ERROR_FLAG = 0;
 
     private LiteralArgumentBuilder<SpigotCommandSource> rootNode;
-    private CommandDispatcher<SpigotCommandSource> commandDispatcher;
 
     public BCommand(final String name) {
         this(name, null);
@@ -58,9 +58,9 @@ public abstract class BCommand extends BukkitCommand {
         final String command = commandLabel + (!arguments.isEmpty() ? " " + arguments : "");
 
         try {
-            this.commandDispatcher.execute(command, commandSource);
+            SpigotBrigadier.getCommandHandler().getCommandDispatcher().execute(command, commandSource);
         } catch (CommandSyntaxException e) {
-            final ParseResults<SpigotCommandSource> parseResults = this.commandDispatcher.parse(command, commandSource);
+            final ParseResults<SpigotCommandSource> parseResults = SpigotBrigadier.getCommandHandler().getCommandDispatcher().parse(command, commandSource);
             final CommandNode<SpigotCommandSource> lastNode = parseResults.getContext().getNodes().get(parseResults.getContext().getNodes().size() - 1).getNode();
 
             sender.sendMessage("Use: /" + commandLabel + " " + lastNode.getChildren().stream().map(CommandNode::getUsageText).collect(Collectors.joining(" ")));
@@ -74,10 +74,10 @@ public abstract class BCommand extends BukkitCommand {
 
         final String arguments = String.join(" ", args);
         final String command = alias + (!arguments.isEmpty() ? " " + arguments : "");
-        final ParseResults<SpigotCommandSource> parseResults = this.commandDispatcher.parse(command, commandSource);
+        final ParseResults<SpigotCommandSource> parseResults = SpigotBrigadier.getCommandHandler().getCommandDispatcher().parse(command, commandSource);
 
         try {
-            final Suggestions completionSuggestions = this.commandDispatcher.getCompletionSuggestions(parseResults).get();
+            final Suggestions completionSuggestions = SpigotBrigadier.getCommandHandler().getCommandDispatcher().getCompletionSuggestions(parseResults).get();
 
             return completionSuggestions.getList().stream().map(Suggestion::getText).collect(Collectors.toList());
         } catch (InterruptedException | ExecutionException ignored) {}
@@ -102,7 +102,6 @@ public abstract class BCommand extends BukkitCommand {
             this.rootNode = literal(alias);
             dispatcher.register(literal(alias).redirect(dispatcher.register(builder(this.rootNode))));
         }
-        this.commandDispatcher = dispatcher;
     }
 
     public LiteralArgumentBuilder<SpigotCommandSource> getRootNode() {
