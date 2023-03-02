@@ -1,5 +1,5 @@
 # SpigotBrigadier
-Spigot implementation for Mojang's Brigadier library
+Spigot implementation for Mojang's [Brigadier](https://github.com/Mojang/brigadier) library
 
 ## How to add this to your plugin:
 Just copy this part to your *build.gradle*:
@@ -17,10 +17,10 @@ dependencies {
 ```
 
 ## Usage:
-SpigotBrigadier offers two types of commands, the Brigadier Command and the DefaultCommand, Brigadier <br>
-Commands use the Brigadier framework from Mojang, Default Commands remind strongly of the classic command system from <br>
-Spigot, where the args are passed as ObjectArrayHelper element (Util from the library), for both command types there <br>
-is an example below <br>
+SpigotBrigadier offers two types of commands, the *BrigadierCommand* and the *DefaultCommand*, Brigadier <br>
+Commands use the [Brigadier](https://github.com/Mojang/brigadier) framework from Mojang, Default Commands remind strongly
+of the classic command system from Spigot, where the args are passed as ObjectArrayHelper element (Util from the library), 
+for both command types there is an example below <br>
 
 ## Example:
 ```java
@@ -73,6 +73,5 @@ public class Test extends JavaPlugin {
             super.execute(sender, label, args);
         }
     }
-
 }
 ```
