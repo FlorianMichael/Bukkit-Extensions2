@@ -36,120 +36,93 @@ public class ObjectArrayHelper {
     }
 
     public Object get(final int index) {
-        if (!this.isIndexValid(index)) {
-            return null;
-        }
+        if (!this.isIndexValid(index)) return null;
 
         return this.array[index];
     }
 
-
     public boolean isString(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         return this.get(index) instanceof String;
     }
 
     public boolean isBoolean(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         try {
             Boolean.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         return false;
     }
 
     public boolean isChar(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         try {
             @SuppressWarnings("unused") char c = (char) this.get(index);
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         return false;
     }
 
     public boolean isShort(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         try {
             Short.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         return false;
     }
 
     public boolean isInteger(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         try {
             Integer.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         return false;
     }
 
     public boolean isLong(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         try {
             Long.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         return false;
     }
 
     public boolean isFloat(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         try {
             Float.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         return false;
     }
 
     public boolean isDouble(final int index) {
-        if (!this.isIndexValid(index)) {
-            return false;
-        }
+        if (!this.isIndexValid(index)) return false;
 
         try {
             Double.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         return false;
     }
-
 
     public String getString(final int index, final String defaultValue) {
         if (!this.isIndexValid(index) || !this.isString(index)) {
@@ -215,8 +188,11 @@ public class ObjectArrayHelper {
         return Double.parseDouble(this.get(index).toString());
     }
 
-
     public String getString(final int index) {
         return this.getString(index, "");
+    }
+
+    public Object[] getArray() {
+        return array;
     }
 }

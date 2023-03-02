@@ -24,12 +24,6 @@ for both command types there is an example below <br>
 
 ## Example:
 ```java
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import de.florianmichael.spigotbrigadier.SpigotBrigadier;
-import de.florianmichael.spigotbrigadier.brigadier.SpigotCommandSource;
-import de.florianmichael.spigotbrigadier.command.BrigadierCommand;
-import org.bukkit.plugin.java.JavaPlugin;
-
 public class Test extends JavaPlugin {
 
     @Override
@@ -42,21 +36,27 @@ public class Test extends JavaPlugin {
 
     public static class BrigadierBasedCommand extends BrigadierCommand {
 
+        /**
+         * Syntax: /test <count> (player name)
+         */
         public BrigadierBasedCommand() {
             super("test");
         }
 
         @Override
         public LiteralArgumentBuilder<SpigotCommandSource> builder(LiteralArgumentBuilder<SpigotCommandSource> builder) {
-            return builder.then(literal("Test").executes(context -> {
-                final CommandSender commandSender = context.getSource().getCommandSender();
-
+            return builder.then(argument("count", IntegerArgumentType.integer()).executes(context -> {
+                context.getSource().getCommandSender().sendMessage("Count: " + IntegerArgumentType.getInteger(context, "count"));
                 return SUCCESS_FLAG;
-            }));
+            }).then(argument("player", BukkitPlayerArgumentType.create()).executes(context ->  {
+                context.getSource().getCommandSender().sendMessage("Player with count: " + BukkitPlayerArgumentType.get(context, "player"));
+                return SUCCESS_FLAG;
+            })));
         }
     }
 
-    public class SimpleCommand extends DefaultCommand {
+    // Same syntax and functionality as the BrigadierBasedCommand, but without Brigadier
+    public static class SimpleCommand extends DefaultCommand {
 
         public SimpleCommand() {
             super("test2");
@@ -64,13 +64,37 @@ public class Test extends JavaPlugin {
 
         @Override
         public void execute(CommandSender sender, String label, ObjectArrayHelper args) {
-            if (args.isString(0)) {
-                final String first = args.getString(0);
-                if (args.isIndexValid(4)) {
-                    // ...
+            if (args.isEmpty()) {
+                sender.sendMessage("Please enter an count");
+                return;
+            }
+            if (!args.isInteger(0)) {
+                sender.sendMessage("The count must be an integer");
+                return;
+            }
+            final int count = args.getInteger(0, 0);
+            sender.sendMessage("Count: " + count);
+            if (args.isLength(2)) {
+                if (args.isLarger(2)) {
+                    sender.sendMessage("You can only provide a count or/and a player");
+                    return;
+                }
+                final Player player = Bukkit.getPlayer(args.getString(1, ""));
+                if (player == null) {
+                    sender.sendMessage("This player is not online: " + args.getString(1, ""));
+                } else {
+                    sender.sendMessage("Player with count: " + player.getName());
                 }
             }
             super.execute(sender, label, args);
+        }
+
+        @Override
+        public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+            if (args.length == 1) {
+                return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+            }
+            return super.tabComplete(sender, alias, args);
         }
     }
 }
