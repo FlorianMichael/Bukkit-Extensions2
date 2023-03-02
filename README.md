@@ -21,7 +21,7 @@ dependencies {
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import de.florianmichael.spigotbrigadier.SpigotBrigadier;
 import de.florianmichael.spigotbrigadier.brigadier.SpigotCommandSource;
-import de.florianmichael.spigotbrigadier.command.BCommand;
+import de.florianmichael.spigotbrigadier.command.BrigadierCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Test extends JavaPlugin {
@@ -33,7 +33,7 @@ public class Test extends JavaPlugin {
         });
     }
 
-    public static class TestCommand extends BCommand {
+    public static class TestCommand extends BrigadierCommand {
 
         public TestCommand() {
             super("test");

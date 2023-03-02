@@ -12,42 +12,48 @@ import com.mojang.brigadier.tree.CommandNode;
 import de.florianmichael.spigotbrigadier.SpigotBrigadier;
 import de.florianmichael.spigotbrigadier.brigadier.SpigotCommandSource;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.defaults.BukkitCommand;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public abstract class BCommand extends BukkitCommand {
+public abstract class BrigadierCommand extends DefaultCommand {
     public static final int SUCCESS_FLAG = 1;
     public static final int ERROR_FLAG = 0;
 
     private LiteralArgumentBuilder<SpigotCommandSource> rootNode;
 
-    public BCommand(final String name) {
-        this(name, null);
-
-    }
-    public BCommand(final String name, final String description) {
-        this(name, description, null);
-    }
-
-    public BCommand(final String name, final String description, final String usage) {
-        this(name, description, usage, null);
-    }
-
-    public BCommand(final String name, final String description, final String usage, final String permission) {
-        this(name, description, usage, permission, new ArrayList<>());
-    }
-
-    public BCommand(final String name, final String description, final String usage, final String permission, final List<String> aliases) {
+    public BrigadierCommand(String name) {
         super(name);
+    }
 
-        this.setDescription(description);
-        this.setUsage(usage);
-        this.setPermission(permission);
-        this.setAliases(aliases);
+    public BrigadierCommand(String name, String description) {
+        super(name, description);
+    }
+
+    public BrigadierCommand(String name, String description, String usage) {
+        super(name, description, usage);
+    }
+
+    public BrigadierCommand(String name, String description, String usage, String permission) {
+        super(name, description, usage, permission);
+    }
+
+    public BrigadierCommand(String name, String description, String usage, String permission, List<String> aliases) {
+        super(name, description, usage, permission, aliases);
+    }
+
+    @Override
+    public void init() {
+        final CommandDispatcher<SpigotCommandSource> dispatcher = SpigotBrigadier.getCommandHandler().getCommandDispatcher();
+
+        final List<String> names = new ArrayList<>(getAliases());
+        names.add(getName());
+        for (String alias : names) {
+            this.rootNode = literal(alias);
+            dispatcher.register(literal(alias).redirect(dispatcher.register(builder(this.rootNode))));
+        }
     }
 
     @Override
@@ -94,15 +100,6 @@ public abstract class BCommand extends BukkitCommand {
     }
 
     public abstract LiteralArgumentBuilder<SpigotCommandSource> builder(final LiteralArgumentBuilder<SpigotCommandSource> builder);
-
-    public void setup(final CommandDispatcher<SpigotCommandSource> dispatcher) {
-        final List<String> names = new ArrayList<>(getAliases());
-        names.add(getName());
-        for (String alias : names) {
-            this.rootNode = literal(alias);
-            dispatcher.register(literal(alias).redirect(dispatcher.register(builder(this.rootNode))));
-        }
-    }
 
     public LiteralArgumentBuilder<SpigotCommandSource> getRootNode() {
         return rootNode;
