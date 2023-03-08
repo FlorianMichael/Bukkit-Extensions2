@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.FlorianMichael:SpigotBrigadier:56fc0c8a67"
+    implementation "com.github.FlorianMichael:SpigotBrigadier:93f5a668ff"
 }
 ```
 
