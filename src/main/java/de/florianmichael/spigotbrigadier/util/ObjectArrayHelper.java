@@ -1,6 +1,6 @@
 /*
  * This file is part of SpigotBrigadier - https://github.com/FlorianMichael/SpigotBrigadier
- * Copyright (C) 2023 FlorianMichael/EnZaXD and contributors
+ * Copyright (C) 2023 FlorianMichael/MrLookAtMe (EnZaXD) and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
