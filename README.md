@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.FlorianMichael:BukkitExtensions2:93f5a668ff"
+    implementation "com.github.FlorianMichael:BukkitExtensions2:7a0f12a47d"
 }
 ```
 
