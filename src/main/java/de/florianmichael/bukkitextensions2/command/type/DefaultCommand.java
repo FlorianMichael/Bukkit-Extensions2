@@ -17,30 +17,75 @@
  */
 package de.florianmichael.bukkitextensions2.command.type;
 
-import de.florianmichael.bukkitextensions2.util.ObjectArrayHelper;
+import de.florianmichael.bukkitextensions2.command.ErrorCallback;
+import de.florianmichael.bukkitextensions2.java.ObjectArrayHelper;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
+/*
+ * Default implementation of a based command
+ */
 public abstract class DefaultCommand extends BukkitCommand {
+    /**
+     * Instance for the error callback
+     */
+    private ErrorCallback errorCallback;
+
+    /**
+     * Default constructors for providing based information
+     *
+     * @param name        main command name
+     */
     public DefaultCommand(final String name) {
         this(name, null);
-
     }
+
+    /**
+     * Default constructors for providing based information
+     *
+     * @param name        main command name
+     * @param description description what to command does
+     */
     public DefaultCommand(final String name, final String description) {
         this(name, description, null);
     }
 
+    /**
+     * Default constructors for providing based information
+     *
+     * @param name        main command name
+     * @param description description what to command does
+     * @param usage       basic command syntax
+     */
     public DefaultCommand(final String name, final String description, final String usage) {
         this(name, description, usage, null);
     }
 
+    /**
+     * Default constructors for providing based information
+     *
+     * @param name        main command name
+     * @param description description what to command does
+     * @param usage       basic command syntax
+     * @param permission  required permission to execute the command
+     */
     public DefaultCommand(final String name, final String description, final String usage, final String permission) {
         this(name, description, usage, permission, new ArrayList<>());
     }
 
+    /**
+     * Default constructors for providing based information
+     *
+     * @param name        main command name
+     * @param description description what to command does
+     * @param usage       basic command syntax
+     * @param permission  required permission to execute the command
+     * @param aliases     optional command names
+     */
     public DefaultCommand(final String name, final String description, final String usage, final String permission, final List<String> aliases) {
         super(name);
 
@@ -50,7 +95,12 @@ public abstract class DefaultCommand extends BukkitCommand {
         this.setAliases(aliases);
     }
 
-    public void init() {
+    /**
+     * Called when the command will be added
+     * @param errorCallback callback instance
+     */
+    public void init(final ErrorCallback errorCallback) {
+        this.errorCallback = errorCallback;
     }
 
     public void execute(final CommandSender sender, final String label, final ObjectArrayHelper args) {
@@ -60,5 +110,9 @@ public abstract class DefaultCommand extends BukkitCommand {
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         this.execute(sender, commandLabel, new ObjectArrayHelper(args));
         return false;
+    }
+
+    public ErrorCallback getErrorCallback() {
+        return errorCallback;
     }
 }

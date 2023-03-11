@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.bukkitextensions2.util;
+package de.florianmichael.bukkitextensions2.java;
 
 public record ObjectArrayHelper(Object[] array) {
 

@@ -129,7 +129,7 @@ public class LambdaEvents<T extends Event> {
     private final Class<T> eventClass;
     private final RegisteredListener registeredListener;
 
-    public LambdaEvents(final HandlerList handlerList, final Class<T> eventClass, final RegisteredListener registeredListener) {
+    private LambdaEvents(final HandlerList handlerList, final Class<T> eventClass, final RegisteredListener registeredListener) {
         this.handlerList = handlerList;
         this.eventClass = eventClass;
         this.registeredListener = registeredListener;

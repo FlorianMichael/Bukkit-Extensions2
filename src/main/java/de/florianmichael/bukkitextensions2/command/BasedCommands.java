@@ -20,10 +20,8 @@ package de.florianmichael.bukkitextensions2.command;
 import com.mojang.brigadier.CommandDispatcher;
 import de.florianmichael.bukkitextensions2.command.brigadier.SpigotCommandSource;
 import de.florianmichael.bukkitextensions2.command.type.DefaultCommand;
-import de.florianmichael.bukkitextensions2.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
-import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.event.Listener;
 
@@ -40,7 +38,7 @@ public class BasedCommands implements Listener {
     /**
      * Command dispatcher for brigadier based commands
      */
-    private final static CommandDispatcher<SpigotCommandSource> commandDispatcher = new CommandDispatcher<>();
+    public final static CommandDispatcher<SpigotCommandSource> COMMAND_DISPATCHER = new CommandDispatcher<>();
 
     /**
      * Register all commands and create a new CommandHandler instance
@@ -48,7 +46,7 @@ public class BasedCommands implements Listener {
      * @param commandProvider Provides all commands via consumer
      */
     public static void registerCommands(final Consumer<List<DefaultCommand>> commandProvider) {
-        registerCommands(error -> error.getValue().sendMessage("Use: /" + error.getKey()), commandProvider);
+        registerCommands((usage, sender) -> sender.sendMessage(usage), commandProvider);
     }
 
     /**
@@ -57,12 +55,12 @@ public class BasedCommands implements Listener {
      * @param errorCallback   Callback if the command dispatcher fails with parsing the command
      * @param commandProvider Provides all commands via consumer
      */
-    public static void registerCommands(final Consumer<Pair<String, CommandSender>> errorCallback, final Consumer<List<DefaultCommand>> commandProvider) {
+    public static void registerCommands(final ErrorCallback errorCallback, final Consumer<List<DefaultCommand>> commandProvider) {
         final List<DefaultCommand> commands = new ArrayList<>();
         commandProvider.accept(commands);
 
         for (DefaultCommand command : commands) {
-            command.init();
+            command.init(errorCallback);
             registerBukkitCommand(command);
         }
     }
@@ -83,9 +81,5 @@ public class BasedCommands implements Listener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static CommandDispatcher<SpigotCommandSource> getCommandDispatcher() {
-        return commandDispatcher;
     }
 }

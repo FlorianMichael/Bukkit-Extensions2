@@ -19,20 +19,8 @@ package de.florianmichael.bukkitextensions2.command.brigadier;
 
 import org.bukkit.command.CommandSender;
 
-public class SpigotCommandSource {
-    private final CommandSender commandSender;
-    private final String label;
-
-    public SpigotCommandSource(CommandSender commandSender, String label) {
-        this.commandSender = commandSender;
-        this.label = label;
-    }
-
-    public CommandSender getCommandSender() {
-        return commandSender;
-    }
-
-    public String getLabel() {
-        return label;
-    }
+/**
+ * Based command source for brigadier, to get access to the command sender and the command input label
+ */
+public record SpigotCommandSource(CommandSender commandSender, String label) {
 }

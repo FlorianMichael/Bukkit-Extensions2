@@ -15,22 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.bukkitextensions2.util;
+package de.florianmichael.bukkitextensions2.command;
 
-public class Pair<K, V> {
-    private final K key;
-    private final V value;
+import org.bukkit.command.CommandSender;
 
-    public Pair(final K key, final V value) {
-        this.key = key;
-        this.value = value;
-    }
+/**
+ * Represents a callback which is executed if the command dispatcher fails to parse the command
+ */
+public interface ErrorCallback {
 
-    public K getKey() {
-        return key;
-    }
-
-    public V getValue() {
-        return value;
-    }
+    void print(final String usage, final CommandSender sender);
 }

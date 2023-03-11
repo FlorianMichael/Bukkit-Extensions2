@@ -32,17 +32,38 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Basic implementation of a Bukkit.getOnlinePlayers() argument type for brigadier
+ */
 public class BukkitPlayerArgumentType implements ArgumentType<Player> {
+
+    /**
+     * throws if the input player is not online
+     */
     public static final DynamicCommandExceptionType invalidPlayerException = new DynamicCommandExceptionType(o -> new LiteralMessage("This player is not online: " + o));
 
+    /**
+     * Creates a new instance for brigadier
+     */
     public static BukkitPlayerArgumentType create() {
         return new BukkitPlayerArgumentType();
     }
 
+    /**
+     * @param context Given context to get the player
+     * @param name    Name of the player
+     * @return        the player
+     */
     public static Player get(final CommandContext<SpigotCommandSource> context, final String name) {
         return context.getArgument(name, Player.class);
     }
 
+    /**
+     *
+     * @param reader Default input reader provided by brigadier
+     * @return Parse result as a player
+     * @throws CommandSyntaxException If brigadier can not parse the player
+     */
     @Override
     public Player parse(StringReader reader) throws CommandSyntaxException {
         final String readContext = reader.readString();
