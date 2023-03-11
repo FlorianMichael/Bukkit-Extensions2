@@ -1,5 +1,5 @@
 /*
- * This file is part of SpigotBrigadier - https://github.com/FlorianMichael/SpigotBrigadier
+ * This file is part of Bukkit-Extensions2 - https://github.com/FlorianMichael/Bukkit-Extensions2
  * Copyright (C) 2023 FlorianMichael/MrLookAtMe (EnZaXD) and contributors
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,12 +17,7 @@
  */
 package de.florianmichael.bukkitextensions2.util;
 
-public class ObjectArrayHelper {
-    private final Object[] array;
-
-    public ObjectArrayHelper(final Object[] array) {
-        this.array = array;
-    }
+public record ObjectArrayHelper(Object[] array) {
 
     public static ObjectArrayHelper empty() {
         return new ObjectArrayHelper(new Object[]{});
@@ -70,7 +65,8 @@ public class ObjectArrayHelper {
         try {
             Boolean.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return false;
     }
@@ -81,7 +77,8 @@ public class ObjectArrayHelper {
         try {
             @SuppressWarnings("unused") char c = (char) this.get(index);
             return true;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return false;
     }
@@ -92,7 +89,8 @@ public class ObjectArrayHelper {
         try {
             Short.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return false;
     }
@@ -103,7 +101,8 @@ public class ObjectArrayHelper {
         try {
             Integer.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return false;
     }
@@ -114,7 +113,8 @@ public class ObjectArrayHelper {
         try {
             Long.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return false;
     }
@@ -125,7 +125,8 @@ public class ObjectArrayHelper {
         try {
             Float.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return false;
     }
@@ -136,7 +137,8 @@ public class ObjectArrayHelper {
         try {
             Double.valueOf(this.get(index).toString());
             return true;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return false;
     }
@@ -207,9 +209,5 @@ public class ObjectArrayHelper {
 
     public String getString(final int index) {
         return this.getString(index, "");
-    }
-
-    public Object[] getArray() {
-        return array;
     }
 }

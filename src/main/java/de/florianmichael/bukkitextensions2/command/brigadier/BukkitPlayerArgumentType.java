@@ -1,5 +1,5 @@
 /*
- * This file is part of SpigotBrigadier - https://github.com/FlorianMichael/SpigotBrigadier
+ * This file is part of Bukkit-Extensions2 - https://github.com/FlorianMichael/Bukkit-Extensions2
  * Copyright (C) 2023 FlorianMichael/MrLookAtMe (EnZaXD) and contributors
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.bukkitextensions2.defaults;
+package de.florianmichael.bukkitextensions2.command.brigadier;
 
 import com.mojang.brigadier.LiteralMessage;
 import com.mojang.brigadier.StringReader;
@@ -25,7 +25,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import de.florianmichael.bukkitextensions2.brigadier.SpigotCommandSource;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

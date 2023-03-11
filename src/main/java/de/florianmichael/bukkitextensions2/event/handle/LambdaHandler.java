@@ -15,22 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.bukkitextensions2.util;
+package de.florianmichael.bukkitextensions2.event.handle;
 
-public class Pair<K, V> {
-    private final K key;
-    private final V value;
+import org.bukkit.event.Event;
+import org.bukkit.event.Listener;
 
-    public Pair(final K key, final V value) {
-        this.key = key;
-        this.value = value;
-    }
+/**
+ * The interface for lambda event handlers
+ */
+public interface LambdaHandler<T extends Event> extends Listener {
 
-    public K getKey() {
-        return key;
-    }
-
-    public V getValue() {
-        return value;
-    }
+    void handle(T event);
 }

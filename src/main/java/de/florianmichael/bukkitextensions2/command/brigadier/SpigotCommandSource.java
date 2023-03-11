@@ -1,5 +1,5 @@
 /*
- * This file is part of SpigotBrigadier - https://github.com/FlorianMichael/SpigotBrigadier
+ * This file is part of Bukkit-Extensions2 - https://github.com/FlorianMichael/Bukkit-Extensions2
  * Copyright (C) 2023 FlorianMichael/MrLookAtMe (EnZaXD) and contributors
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.bukkitextensions2.brigadier;
+package de.florianmichael.bukkitextensions2.command.brigadier;
 
 import org.bukkit.command.CommandSender;
 

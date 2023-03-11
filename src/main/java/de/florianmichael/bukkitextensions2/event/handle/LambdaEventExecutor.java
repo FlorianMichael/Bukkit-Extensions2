@@ -15,22 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.bukkitextensions2.util;
+package de.florianmichael.bukkitextensions2.event.handle;
 
-public class Pair<K, V> {
-    private final K key;
-    private final V value;
+import org.bukkit.event.Event;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.EventExecutor;
 
-    public Pair(final K key, final V value) {
-        this.key = key;
-        this.value = value;
-    }
+/**
+ * The implementation of {@link EventExecutor} to register in the handler list
+ */
+public record LambdaEventExecutor<T extends Event>(Class<T> eventClass, LambdaHandler<T> handler) implements EventExecutor {
 
-    public K getKey() {
-        return key;
-    }
-
-    public V getValue() {
-        return value;
+    @Override
+    public void execute(Listener listener, Event event) {
+        if (this.eventClass.isAssignableFrom(event.getClass())) {
+            this.handler.handle((T) event);
+        }
     }
 }
