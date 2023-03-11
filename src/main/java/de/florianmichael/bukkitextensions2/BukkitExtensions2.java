@@ -15,11 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.spigotbrigadier;
+package de.florianmichael.bukkitextensions2;
 
-import de.florianmichael.spigotbrigadier.command.CommandHandler;
-import de.florianmichael.spigotbrigadier.command.DefaultCommand;
-import de.florianmichael.spigotbrigadier.util.Pair;
+import de.florianmichael.bukkitextensions2.command.CommandHandler;
+import de.florianmichael.bukkitextensions2.command.DefaultCommand;
+import de.florianmichael.bukkitextensions2.util.Pair;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class SpigotBrigadier {
+public class BukkitExtensions2 {
     public static final Logger LOGGER = LogManager.getLogManager().getLogger("SpigotBrigadier");
     private static CommandHandler commandHandler;
 

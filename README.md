@@ -1,5 +1,5 @@
-# SpigotBrigadier
-Spigot implementation for Mojang's [Brigadier](https://github.com/Mojang/brigadier) library
+# Bukkit-Extensions2
+Powerful Bukkit API for Plugin Developers v2
 
 ## How to add this to your plugin:
 Just copy this part to your *build.gradle*:
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.FlorianMichael:SpigotBrigadier:93f5a668ff"
+    implementation "com.github.FlorianMichael:BukkitExtensions2:93f5a668ff"
 }
 ```
 

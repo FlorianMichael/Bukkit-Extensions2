@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.spigotbrigadier.defaults;
+package de.florianmichael.bukkitextensions2.defaults;
 
 import com.mojang.brigadier.LiteralMessage;
 import com.mojang.brigadier.StringReader;
@@ -25,7 +25,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import de.florianmichael.spigotbrigadier.brigadier.SpigotCommandSource;
+import de.florianmichael.bukkitextensions2.brigadier.SpigotCommandSource;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

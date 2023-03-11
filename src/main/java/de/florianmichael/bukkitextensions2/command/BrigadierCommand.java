@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.spigotbrigadier.command;
+package de.florianmichael.bukkitextensions2.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.ParseResults;
@@ -26,8 +26,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestion;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.tree.CommandNode;
-import de.florianmichael.spigotbrigadier.SpigotBrigadier;
-import de.florianmichael.spigotbrigadier.brigadier.SpigotCommandSource;
+import de.florianmichael.bukkitextensions2.BukkitExtensions2;
+import de.florianmichael.bukkitextensions2.brigadier.SpigotCommandSource;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public abstract class BrigadierCommand extends DefaultCommand {
 
     @Override
     public void init() {
-        final CommandDispatcher<SpigotCommandSource> dispatcher = SpigotBrigadier.getCommandHandler().getCommandDispatcher();
+        final CommandDispatcher<SpigotCommandSource> dispatcher = BukkitExtensions2.getCommandHandler().getCommandDispatcher();
 
         final List<String> names = new ArrayList<>(getAliases());
         names.add(getName());
@@ -81,9 +81,9 @@ public abstract class BrigadierCommand extends DefaultCommand {
         final String command = commandLabel + (!arguments.isEmpty() ? " " + arguments : "");
 
         try {
-            SpigotBrigadier.getCommandHandler().getCommandDispatcher().execute(command, commandSource);
+            BukkitExtensions2.getCommandHandler().getCommandDispatcher().execute(command, commandSource);
         } catch (CommandSyntaxException e) {
-            final ParseResults<SpigotCommandSource> parseResults = SpigotBrigadier.getCommandHandler().getCommandDispatcher().parse(command, commandSource);
+            final ParseResults<SpigotCommandSource> parseResults = BukkitExtensions2.getCommandHandler().getCommandDispatcher().parse(command, commandSource);
             final CommandNode<SpigotCommandSource> lastNode = parseResults.getContext().getNodes().get(parseResults.getContext().getNodes().size() - 1).getNode();
 
             sender.sendMessage("Use: /" + commandLabel + " " + lastNode.getChildren().stream().map(CommandNode::getUsageText).collect(Collectors.joining(" ")));
@@ -97,10 +97,10 @@ public abstract class BrigadierCommand extends DefaultCommand {
 
         final String arguments = String.join(" ", args);
         final String command = alias + (!arguments.isEmpty() ? " " + arguments : "");
-        final ParseResults<SpigotCommandSource> parseResults = SpigotBrigadier.getCommandHandler().getCommandDispatcher().parse(command, commandSource);
+        final ParseResults<SpigotCommandSource> parseResults = BukkitExtensions2.getCommandHandler().getCommandDispatcher().parse(command, commandSource);
 
         try {
-            final Suggestions completionSuggestions = SpigotBrigadier.getCommandHandler().getCommandDispatcher().getCompletionSuggestions(parseResults).get();
+            final Suggestions completionSuggestions = BukkitExtensions2.getCommandHandler().getCommandDispatcher().getCompletionSuggestions(parseResults).get();
 
             return completionSuggestions.getList().stream().map(Suggestion::getText).collect(Collectors.toList());
         } catch (InterruptedException | ExecutionException ignored) {}

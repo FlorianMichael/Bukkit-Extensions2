@@ -15,11 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.spigotbrigadier.command;
+package de.florianmichael.bukkitextensions2.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import de.florianmichael.spigotbrigadier.brigadier.SpigotCommandSource;
-import de.florianmichael.spigotbrigadier.util.Pair;
+import de.florianmichael.bukkitextensions2.brigadier.SpigotCommandSource;
+import de.florianmichael.bukkitextensions2.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;

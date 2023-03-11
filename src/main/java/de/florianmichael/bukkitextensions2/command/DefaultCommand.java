@@ -15,9 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.spigotbrigadier.command;
+package de.florianmichael.bukkitextensions2.command;
 
-import de.florianmichael.spigotbrigadier.util.ObjectArrayHelper;
+import de.florianmichael.bukkitextensions2.util.ObjectArrayHelper;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 

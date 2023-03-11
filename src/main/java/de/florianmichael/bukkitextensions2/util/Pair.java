@@ -15,24 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.florianmichael.spigotbrigadier.brigadier;
+package de.florianmichael.bukkitextensions2.util;
 
-import org.bukkit.command.CommandSender;
+public class Pair<K, V> {
+    private final K key;
+    private final V value;
 
-public class SpigotCommandSource {
-    private final CommandSender commandSender;
-    private final String label;
-
-    public SpigotCommandSource(CommandSender commandSender, String label) {
-        this.commandSender = commandSender;
-        this.label = label;
+    public Pair(final K key, final V value) {
+        this.key = key;
+        this.value = value;
     }
 
-    public CommandSender getCommandSender() {
-        return commandSender;
+    public K getKey() {
+        return key;
     }
 
-    public String getLabel() {
-        return label;
+    public V getValue() {
+        return value;
     }
 }

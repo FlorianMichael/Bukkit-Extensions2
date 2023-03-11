@@ -1,4 +1,4 @@
-package de.florianmichael.spigotbrigadier.util;
+package de.florianmichael.bukkitextensions2.util;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -108,7 +108,6 @@ public class LambdaEvents<T extends Event> {
         throw new IllegalPluginAccessException("Unable to find handler list for event " + eventClass.getName() + ". Static getHandlerList method required!");
     }
 
-
     private final HandlerList handlerList;
     private final Class<T> eventClass;
     private final RegisteredListener registeredListener;
@@ -151,19 +150,11 @@ public class LambdaEvents<T extends Event> {
     /**
      * The implementation of {@link EventExecutor} to register in the handler list
      */
-    private static class LambdaEventExecutor<T extends Event> implements EventExecutor {
-        private final Class<T> eventClass;
-        private final LambdaHandler<T> handler;
-
-        private LambdaEventExecutor(final Class<T> eventClass, final LambdaHandler<T> handler) {
-            this.eventClass = eventClass;
-            this.handler = handler;
-        }
+    private record LambdaEventExecutor<T extends Event>(Class<T> eventClass, LambdaHandler<T> handler) implements EventExecutor {
 
         @Override
         public void execute(Listener listener, Event event) {
             if (this.eventClass.isAssignableFrom(event.getClass())) this.handler.handle((T) event);
         }
     }
-
 }
